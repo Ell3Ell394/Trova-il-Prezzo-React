@@ -44,7 +44,7 @@ var gameListModel = require('../models/gamelistscraping')
 
 var CronJob = require('cron').CronJob;
 
-new CronJob('00 01 15 * * *', function() {
+new CronJob('00 32 23 * * *', function() {
   gameListModel.getData(function(err, scrapeData) {
          if (err) {
               // do something with error
@@ -61,7 +61,7 @@ new CronJob('00 01 15 * * *', function() {
 
 /// funziona 18/07/1016
 //gratta i dati  dei giochi dai siti
-new CronJob('00 01 15 * * *', function() {
+new CronJob('00 32 23 * * *', function() {
    unieuroPS4Model.getData(function(err, scrapeData) {
         if (err) {
              // do something with errors
@@ -160,9 +160,14 @@ var regex = new RegExp(req.params.title, "i")
 gamelists.collection.find({'title': regex }, {_id:0}, function(err, cursor){
     cursor
         .map(function(item){ 
-            return item.title; 
+            item.value = item.title;
+            delete item.title;
+            item.label = item.value;
+            console.log(item)
+            return item; 
         })
         .toArray(function(err, results){
+          console.log(results)
             return res.send(results)
         })
 }) 
