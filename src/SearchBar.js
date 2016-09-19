@@ -3,40 +3,55 @@ import { FormGroup } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import { FormControl } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
-import Autosuggest from 'react-autosuggest';
+import Select from 'react-select';
+
+require("../node_modules/react-select/dist/react-select.css");
+
+
+
+const getOptions = (input) => {
+ 
+ return fetch(`/games/uni/autocomplete/`+input,{method: "get"})
+    .then((response) => {
+      return response.json();
+    }).then((json) => {
+       return { options: json };
+    });
+}
 
 
 class SearchBar extends React.Component {
-    constructor(props){
-      super(props);
-        this.state = {
-          search: ''
-       
-        };
-    }
+   constructor(props) {
+     super(props);
+     this.onChange = this.onChange.bind(this);
+     this.state = { value: '' }
+     
+   }
+   
+  
+   onChange(val) {
+     console.log('Setting value to ',val.label)
+     this.setState({value: val.label})
+   }
+   
 
-    updateSearch(event){
-      this.setState({search: event.target.value.substr(0,20)});
-    }
+   render(){
 
-
-
-
-    render() {
-        return (
-      <form>  
-          <FormGroup>
-                <InputGroup>
-                 	<FormControl type="text" placeholder ="search" value = {this.state.search} onChange = {this.updateSearch.bind(this)}/>
-	                 	<InputGroup.Button>
-          					   <Button>Vai</Button>
-        				    </InputGroup.Button>
-                </InputGroup>
-          </FormGroup>
-		  </form>
+             
+          return (
             
-        )
-    }
-}
+            <div>
+            <Select.Async
+              name="testme"
+              value={this.state.value}
+              loadOptions={getOptions}
+              
+              onChange={this.onChange} />
+            </div>
+    );
+  }
+} 
+
 
 export default SearchBar;
+
