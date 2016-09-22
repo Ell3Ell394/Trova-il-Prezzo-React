@@ -1,7 +1,10 @@
 import React from 'react';
 import {render} from 'react-dom';
 import  SearchBar from './SearchBar';
-
+import Grid from '../node_modules/react-bootstrap/lib/Grid';
+import Row from '../node_modules/react-bootstrap/lib/Row';
+import Col from '../node_modules/react-bootstrap/lib/Col';
+import { FormGroup, InputGroup, FormControl, Button} from '../node_modules/react-bootstrap';
 
 
 var App = React.createClass({
@@ -10,13 +13,21 @@ var App = React.createClass({
 
              
           return (
-            <div>
+            
+        <div>
             <p>We </p>
-            <div className="row col-md-4 col-md-offset-4">
-              <SearchBar />
-            </div>
+            
+            <Grid>
+                <Row>
+                  <Col md={4} mdOffset ={4}>
+                      <SearchBar />
+                  </Col>
+                </Row>
+            </Grid>
         </div>
 
+
+       
       
     )
   }

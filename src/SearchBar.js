@@ -1,24 +1,21 @@
 import React from 'react';
 import Select from 'react-select';
-import { FormGroup, InputGroup, FormControl, Button} from 'react-bootstrap';
-
-
-
+import  GamesTable from './GamesTable';
 require("../node_modules/react-select/dist/react-select.css");
 
 const minimumInput = 3
 let previousLoadPromise
-
 var options = [];
+
 
 function loadOptions (inputValue = '') {
   if (inputValue.length >= minimumInput) {
           previousLoadPromise = fetch(`/games/uni/autocomplete/`+inputValue,{method: "get"})
-          .then((response) => {
-            return response.json();
-          }).then((json) => {
-             return { options: json };
-          }); 
+            .then((response) => {
+              return response.json();
+            }).then((json) => {
+              return { options: json };
+            }); 
         
   } else{
 
@@ -40,24 +37,39 @@ class SearchBar extends React.Component {
    }
    
   onChange(val) {
-     console.log('Setting value to ',val.label)
-     this.setState({value: val.label})
+     // console.log(val)
+      console.log('Setting value to ',val.label)
+      this.setState({value: val.label})
   }
    
 
    render(){
             
           return (
-            
-            <div>
-              <Select.Async
-              name="testme"
-              value={this.state.value}
-              loadOptions={loadOptions}
-              
-              onChange={this.onChange} />
+        
+        <div>  
+            <div>      
+
+               <Select.Async
+                name="testme"
+                value={this.state.value}
+                loadOptions={loadOptions}
+                onChange={this.onChange} />
 
             </div>
+
+          <div> 
+                <GamesTable game = {this.state.value} />
+          </div>
+
+       </div>
+
+
+
+
+
+            
+
     );
   }
 } 

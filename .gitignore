@@ -47,3 +47,4 @@ startDB.bat
 
 #Cartelle
 node_modules
+db
