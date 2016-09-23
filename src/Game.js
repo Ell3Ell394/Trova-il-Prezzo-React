@@ -6,14 +6,23 @@ class Game extends React.Component {
     
      this.state = { 
      	value: '',
-     	giochi: []
+     	giochi: [],
+      headers: []
       }
 }
 
+componentWillReceiveProps() {
+  if (this.state.giochi.length > 0) {
+  this.setState({headers: ['Descrizione','Prezzo','Link']})
+  };
 
+}
    render(){
            let arrgiochi = this.props.giochi
-           console.log(arrgiochi)
+           var arrheaders = this.state.headers
+
+           //console.log(arrgiochi)
+
         var el = document.createElement('a');
           return (
             
@@ -21,10 +30,13 @@ class Game extends React.Component {
                 <Table striped bordered condensed hover>
                   <thead>
                         <tr>
-                          
-                          <th>Descrizione</th>
-                          <th>Prezzo</th>
-                          <th>Link</th>
+                        
+                          {
+                              arrheaders.map((intestazione) => {
+                                let riga = <th key={intestazione}>{intestazione}</th>
+                                return riga
+                              })
+                          }
                         </tr>
                   </thead>
                     <tbody>
@@ -35,7 +47,7 @@ class Game extends React.Component {
                             var split = el.hostname.split(".");
                             el.hostname = split[1];
 
-                              let riga =   <tr key={giochi.link}> <td> {giochi.title} </td><td> {giochi.prezzo} </td> <td> <a href={giochi.link}target='_blank'>Link a {el.hostname}</a></td></tr>
+                              let riga =   <tr key={giochi.link}><td>{giochi.title}</td><td>{giochi.prezzo}</td><td><a href={giochi.link}target='_blank'>Link a {el.hostname}</a></td></tr>
                               return riga
                           })
                       }

@@ -89,15 +89,7 @@
 	      _react2.default.createElement(
 	        _Grid2.default,
 	        null,
-	        _react2.default.createElement(
-	          _Row2.default,
-	          null,
-	          _react2.default.createElement(
-	            _Col2.default,
-	            { md: 4, mdOffset: 4 },
-	            _react2.default.createElement(_SearchBar2.default, null)
-	          )
-	        )
+	        _react2.default.createElement(_SearchBar2.default, null)
 	      )
 	    );
 	  }
@@ -21500,6 +21492,14 @@
 
 	var _GamesTable2 = _interopRequireDefault(_GamesTable);
 
+	var _Row = __webpack_require__(280);
+
+	var _Row2 = _interopRequireDefault(_Row);
+
+	var _Col = __webpack_require__(283);
+
+	var _Col2 = _interopRequireDefault(_Col);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21509,6 +21509,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	__webpack_require__(284);
+
 
 	var minimumInput = 3;
 	var previousLoadPromise = void 0;
@@ -21561,16 +21562,32 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement(_reactSelect2.default.Async, {
-	            name: 'testme',
-	            value: this.state.value,
-	            loadOptions: loadOptions,
-	            onChange: this.onChange })
+	          _react2.default.createElement(
+	            _Row2.default,
+	            null,
+	            _react2.default.createElement(
+	              _Col2.default,
+	              { md: 4, mdOffset: 4, style: { "marginTop": "50px" } },
+	              _react2.default.createElement(_reactSelect2.default.Async, {
+	                name: 'testme',
+	                value: this.state.value,
+	                loadOptions: loadOptions,
+	                onChange: this.onChange })
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement(_GamesTable2.default, { game: this.state.value })
+	          _react2.default.createElement(
+	            _Row2.default,
+	            null,
+	            _react2.default.createElement(
+	              _Col2.default,
+	              { md: 10, mdOffset: 1, style: { "marginTop": "40px" } },
+	              _react2.default.createElement(_GamesTable2.default, { game: this.state.value })
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -23971,15 +23988,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          _Row2.default,
-	          null,
-	          _react2.default.createElement(
-	            _Col2.default,
-	            { md: 10 },
-	            _react2.default.createElement(_Game2.default, { giochi: this.state.giochi })
-	          )
-	        )
+	        _react2.default.createElement(_Game2.default, { giochi: this.state.giochi })
 	      );
 	    }
 	  }]);
@@ -24027,16 +24036,27 @@
 
 	    _this.state = {
 	      value: '',
-	      giochi: []
+	      giochi: [],
+	      headers: []
 	    };
 	    return _this;
 	  }
 
 	  _createClass(Game, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps() {
+	      if (this.state.giochi.length > 0) {
+	        this.setState({ headers: ['Descrizione', 'Prezzo', 'Link'] });
+	      };
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var arrgiochi = this.props.giochi;
-	      console.log(arrgiochi);
+	      var arrheaders = this.state.headers;
+
+	      //console.log(arrgiochi)
+
 	      var el = document.createElement('a');
 	      return _react2.default.createElement(
 	        'div',
@@ -24050,21 +24070,14 @@
 	            _react2.default.createElement(
 	              'tr',
 	              null,
-	              _react2.default.createElement(
-	                'th',
-	                null,
-	                'Descrizione'
-	              ),
-	              _react2.default.createElement(
-	                'th',
-	                null,
-	                'Prezzo'
-	              ),
-	              _react2.default.createElement(
-	                'th',
-	                null,
-	                'Link'
-	              )
+	              arrheaders.map(function (intestazione) {
+	                var riga = _react2.default.createElement(
+	                  'th',
+	                  { key: intestazione },
+	                  intestazione
+	                );
+	                return riga;
+	              })
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -24079,26 +24092,19 @@
 	              var riga = _react2.default.createElement(
 	                'tr',
 	                { key: giochi.link },
-	                ' ',
 	                _react2.default.createElement(
 	                  'td',
 	                  null,
-	                  ' ',
-	                  giochi.title,
-	                  ' '
+	                  giochi.title
 	                ),
 	                _react2.default.createElement(
 	                  'td',
 	                  null,
-	                  ' ',
-	                  giochi.prezzo,
-	                  ' '
+	                  giochi.prezzo
 	                ),
-	                ' ',
 	                _react2.default.createElement(
 	                  'td',
 	                  null,
-	                  ' ',
 	                  _react2.default.createElement(
 	                    'a',
 	                    { href: giochi.link, target: '_blank' },

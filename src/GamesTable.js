@@ -41,15 +41,8 @@ render(){
           return (
             
             <div>
-          			                <Row>
-                  <Col md={10}>
+          		
                       <Game giochi = {this.state.giochi}/>
-                  </Col>
-                </Row>
-
-
-
-
             </div>
     );
   }

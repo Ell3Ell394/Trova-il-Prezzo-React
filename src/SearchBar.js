@@ -2,10 +2,13 @@ import React from 'react';
 import Select from 'react-select';
 import  GamesTable from './GamesTable';
 require("../node_modules/react-select/dist/react-select.css");
+import Row from '../node_modules/react-bootstrap/lib/Row';
+import Col from '../node_modules/react-bootstrap/lib/Col';
 
 const minimumInput = 3
 let previousLoadPromise
 var options = [];
+
 
 
 function loadOptions (inputValue = '') {
@@ -49,17 +52,25 @@ class SearchBar extends React.Component {
         
         <div>  
             <div>      
-
-               <Select.Async
-                name="testme"
-                value={this.state.value}
-                loadOptions={loadOptions}
-                onChange={this.onChange} />
+              <Row>
+                  <Col md={4} mdOffset={4} style={{"marginTop" : "50px"}}>
+                      <Select.Async
+                          name="testme"
+                          value={this.state.value}
+                          loadOptions={loadOptions}
+                          onChange={this.onChange} />
+                  </Col>
+              </Row>
+               
 
             </div>
 
           <div> 
+            <Row>
+              <Col md={10}  mdOffset={1} style={{"marginTop" : "40px"}}>
                 <GamesTable game = {this.state.value} />
+              </Col>
+            </Row>
           </div>
 
        </div>

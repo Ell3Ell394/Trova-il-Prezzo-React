@@ -18,11 +18,9 @@ var App = React.createClass({
             <p>We </p>
             
             <Grid>
-                <Row>
-                  <Col md={4} mdOffset ={4}>
+       
                       <SearchBar />
-                  </Col>
-                </Row>
+                
             </Grid>
         </div>
 
